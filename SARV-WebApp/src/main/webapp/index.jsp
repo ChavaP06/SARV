@@ -384,6 +384,7 @@ window.d3 = null;
 		Boolean isFileSizeExceed = false;
 		String JsonOut = "";
 		String textDetailResults = "";
+		Boolean isInvalidInput = false;
 		String textOut = "";
 		String f1 = "";
 		//init line count
@@ -400,7 +401,9 @@ window.d3 = null;
 		if (request.getAttribute("errorCheck=True") == "FILE_SIZE_EXCEEDED") {
 			isFileSizeExceed = true;
 		}
-
+		if(request.getAttribute("errorCheck=True") == "FILE_TYPE_INVALID"){
+			isInvalidInput = true;
+		}
 		if (fileRequest == null) {
 			out.println("null!");
 		} else {
@@ -956,6 +959,13 @@ window.d3 = null;
 	var info = document.getElementById("output-info-wrapper");
 	//output - plain text container // because plain text used different div from graph div
 	var plain_text = document.getElementById("rules-content");
+	
+	
+	var isInputInvalid = <%=isInvalidInput%>;
+	
+	if(isInputInvalid==true){
+		notfound.style.display ="block";
+	}
 	
 	//Error File Size Exceeded more than 1024*10 (10KB)
 	if(fileSizeExceeded_js===true){

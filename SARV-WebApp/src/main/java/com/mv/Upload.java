@@ -39,7 +39,7 @@ public class Upload extends HttpServlet {
 			List<FileItem> items = upload.parseRequest(request); // Get all the files
 			Iterator<FileItem> i = items.iterator();
 			String fileSizeExceededChecker = "";
-
+			String invalidFileInput = "";
 			while (i.hasNext()) {
 				FileItem fi = (FileItem) i.next();
 
@@ -75,6 +75,13 @@ public class Upload extends HttpServlet {
 							System.out.print("Error");
 
 						}
+					} 
+					//check if file isn't csv.
+					else if(fileName != null && !(ext1.equals("csv"))){
+						invalidFileInput = "FILE_TYPE_INVALID";
+						request.setAttribute("errorCheck=True", invalidFileInput);
+						request.getRequestDispatcher("/index.jsp").forward(request, response);
+						return;
 					}
 
 				} else {
