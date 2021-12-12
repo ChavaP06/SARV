@@ -858,6 +858,12 @@ window.d3 = null;
 				<h2 style="color: red;">File Not Found.</h2>
 				<p style="color: red;">ไม่พบไฟล์ โปรดอัพโหลดไฟล์</p>
 			</div>
+			<!-- display file invalid format -->
+			<div class="output-info-wrapper" id="output-invalid"
+				style="display: none;">
+				<h2 style="color: red;">Invalid File Input Format.</h2>
+				<p style="color: red;">ไฟล์ที่อัพโหลดผิดประเภท โปรดตรวจสอบไฟล์ก่อนอัพโหลดใหม่อีกครั้ง</p>
+			</div>
 
 			<div class="output-info-wrapper" id="output-info-wrapper"
 				style="display: none;">
@@ -953,6 +959,10 @@ window.d3 = null;
 	var notfound_js = <%=isNotFound%>;
 	var notfound = document.getElementById("output-notfound");
 	
+	//output invalid file
+	var isInputInvalid_js = <%=isInvalidInput%>;
+	var isInputInvalid = document.getElementById("output-invalid");
+	
 	//output - graph container / blob / vertical node / graph info
 	var output = document.getElementById("container");
 	var blob = document.getElementById("btnBlob");
@@ -961,10 +971,11 @@ window.d3 = null;
 	var plain_text = document.getElementById("rules-content");
 	
 	
-	var isInputInvalid = <%=isInvalidInput%>;
 	
-	if(isInputInvalid==true){
-		notfound.style.display ="block";
+	
+	//Error File Invalid format
+	if(isInputInvalid_js==true){
+		isInputInvalid.style.display ="block";
 	}
 	
 	//Error File Size Exceeded more than 1024*10 (10KB)

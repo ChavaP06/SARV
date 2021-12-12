@@ -45,6 +45,18 @@ public class Upload extends HttpServlet {
 
 				if (!fi.isFormField()) {
 					String fileName = fi.getName();
+					
+					// System.out.print(fi.getSize());
+					// get file extension
+					String ext1 = FilenameUtils.getExtension(fileName);
+					
+					//check if file isn't csv.
+					if(fileName != null && !(ext1.equals("csv"))) {
+						invalidFileInput = "FILE_TYPE_INVALID";
+						request.setAttribute("errorCheck=True", invalidFileInput);
+						request.getRequestDispatcher("/index.jsp").forward(request, response);
+						return;
+					}
 					// check if file size exceeded 10KB if so teleport to index.jsp with error checker.
 					if (fi.getSize() > 1024 * 10) {
 						fileSizeExceededChecker = "FILE_SIZE_EXCEEDED";
@@ -52,9 +64,7 @@ public class Upload extends HttpServlet {
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
 						return;
 					}
-					// System.out.print(fi.getSize());
-					// get file extension
-					String ext1 = FilenameUtils.getExtension(fileName);
+					
 					if (fileName != null && ext1.equals("csv")) {
 
 						File fullFile = new File(fi.getName());
@@ -76,14 +86,7 @@ public class Upload extends HttpServlet {
 
 						}
 					} 
-					//check if file isn't csv.
-					else if(fileName != null && !(ext1.equals("csv"))){
-						invalidFileInput = "FILE_TYPE_INVALID";
-						request.setAttribute("errorCheck=True", invalidFileInput);
-						request.getRequestDispatcher("/index.jsp").forward(request, response);
-						return;
-					}
-
+					
 				} else {
 					String fieldname = fi.getFieldName();
 					String fieldvalue = fi.getString();
