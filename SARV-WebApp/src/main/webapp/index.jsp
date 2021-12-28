@@ -769,7 +769,7 @@ window.d3 = null;
 				}
 
 			}
-			//
+			
 			//Convert nodes to json
 			Gson g = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 			String results = g.toJson(root).toString();

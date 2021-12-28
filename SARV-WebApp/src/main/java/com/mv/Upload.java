@@ -50,7 +50,7 @@ public class Upload extends HttpServlet {
 					// get file extension
 					String ext1 = FilenameUtils.getExtension(fileName);
 					
-					//
+					
 					if(!(fi.getName().endsWith(".csv"))) {
 						invalidFileInput = "INVALID_FILE_INPUT";
 						request.setAttribute("invalidFileCheck=True", invalidFileInput);
