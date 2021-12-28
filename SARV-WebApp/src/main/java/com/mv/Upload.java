@@ -45,18 +45,20 @@ public class Upload extends HttpServlet {
 
 				if (!fi.isFormField()) {
 					String fileName = fi.getName();
-					
+				
 					// System.out.print(fi.getSize());
 					// get file extension
 					String ext1 = FilenameUtils.getExtension(fileName);
 					
-					//check if file isn't csv.
-					if(fileName != null && !(ext1.equals("csv"))) {
-						invalidFileInput = "FILE_TYPE_INVALID";
-						request.setAttribute("errorCheck=True", invalidFileInput);
+					
+					if(!(fi.getName().endsWith(".csv"))) {
+						invalidFileInput = "INVALID_FILE_INPUT";
+						request.setAttribute("invalidFileCheck=True", invalidFileInput);
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
 						return;
+						
 					}
+					
 					// check if file size exceeded 10KB if so teleport to index.jsp with error checker.
 					if (fi.getSize() > 1024 * 10) {
 						fileSizeExceededChecker = "FILE_SIZE_EXCEEDED";
@@ -64,6 +66,7 @@ public class Upload extends HttpServlet {
 						request.getRequestDispatcher("/index.jsp").forward(request, response);
 						return;
 					}
+					
 					
 					if (fileName != null && ext1.equals("csv")) {
 
@@ -85,15 +88,17 @@ public class Upload extends HttpServlet {
 							System.out.print("Error");
 
 						}
-					} 
+					}
+					
+					
 					
 				} else {
 					String fieldname = fi.getFieldName();
 					String fieldvalue = fi.getString();
 
-					System.out.println(fieldname + " >> " + fieldvalue);
+					/*System.out.println(fieldname + " >> " + fieldvalue);
 
-					/*
+					
 					 * if(fieldname.equals("support-slider1")) {
 					 * request.setAttribute("support-slider1", fieldvalue); }
 					 * if(fieldname.equals("support-slider2")) {
