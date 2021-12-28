@@ -398,20 +398,22 @@ window.d3 = null;
 		if (request.getAttribute("myname") != null) {
 			fileRequest = request.getAttribute("myname").toString();
 		}
-		if (request.getAttribute("errorCheck=True") == "FILE_SIZE_EXCEEDED") {
+		
+		if (request.getAttribute("invalidFileCheck=True") == "INVALID_FILE_INPUT") {
+			isInvalidInput = true;
+		}else if (request.getAttribute("errorCheck=True") == "FILE_SIZE_EXCEEDED") {
 			isFileSizeExceed = true;
 		}
-		if(request.getAttribute("errorCheck=True") == "FILE_TYPE_INVALID"){
-			isInvalidInput = true;
-		}
+		
 		if (fileRequest == null) {
+			
 			out.println("null!");
 		} else {
-
+			
 			if (fileRequest != "") {
-
+			
 				try {
-
+			
 			f1 = fileRequest;
 			//out.println(f1);
 			//String f1 = "C:\\Users\\User\\Desktop\\datatest\\weather.csv";
@@ -424,6 +426,12 @@ window.d3 = null;
 			loader.setSource(new File(f1));
 			Instances data = loader.getDataSet();
 			String fileName = parts[parts.length - 1];
+			/*if(fileName.endsWith(".csv")){
+				System.out.println("Luy");
+			}else{
+				System.out.println("Kuy");
+			}*/
+			
 			// save ARFF
 			fileName = fileName.replace("csv", "arff");
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
@@ -805,7 +813,12 @@ window.d3 = null;
 			} else {
 				//now give value to show in info div instead of plain output text
 				//out.print("File not found.");
-				isNotFound = true;
+			
+				//isNotFound = true;
+				 /*if(request.getAttribute("errorInvalidCheck=True") == "FILE_TYPE_INVALID" && fileRequest!=""){
+					isInvalidInput = true;
+				}*/
+				 
 			}
 
 		}
@@ -861,8 +874,8 @@ window.d3 = null;
 			<!-- display file invalid format -->
 			<div class="output-info-wrapper" id="output-invalid"
 				style="display: none;">
-				<h2 style="color: red;">Invalid File Input Format.</h2>
-				<p style="color: red;">ไฟล์ที่อัพโหลดผิดประเภท โปรดตรวจสอบไฟล์ก่อนอัพโหลดใหม่อีกครั้ง</p>
+				<h2 style="color: red;">File Upload Error.</h2>
+				<p style="color: red;">โปรดตรวจสอบไฟล์ก่อนอัพโหลดใหม่อีกครั้ง</p>
 			</div>
 
 			<div class="output-info-wrapper" id="output-info-wrapper"
@@ -974,10 +987,9 @@ window.d3 = null;
 	
 	
 	//Error File Invalid format
-	if(isInputInvalid_js==true){
+	if(isInputInvalid_js===true){
 		isInputInvalid.style.display ="block";
 	}
-	
 	//Error File Size Exceeded more than 1024*10 (10KB)
 	if(fileSizeExceeded_js===true){
 		fileSizeExceeded.style.display ="block";
@@ -987,9 +999,9 @@ window.d3 = null;
 		error.style.display ="block";
 	}
 	//Error file not found
-	else if(notfound_js === true && isUpload !== "Not selected yet.") {
+	/*else if(notfound_js === true && isUpload !== "Not selected yet.") {
 		notfound.style.display ="block";
-	}
+	}*/
 	//Check if graph type is choosen and not a plain text type --- will display graph container
 	else if(isUpload !== "Not selected yet.") {
 		info.style.display ="block";
