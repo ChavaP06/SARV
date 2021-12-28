@@ -426,11 +426,6 @@ window.d3 = null;
 			loader.setSource(new File(f1));
 			Instances data = loader.getDataSet();
 			String fileName = parts[parts.length - 1];
-			/*if(fileName.endsWith(".csv")){
-				System.out.println("Luy");
-			}else{
-				System.out.println("Kuy");
-			}*/
 			
 			// save ARFF
 			fileName = fileName.replace("csv", "arff");
