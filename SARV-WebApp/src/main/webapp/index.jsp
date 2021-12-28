@@ -804,7 +804,7 @@ window.d3 = null;
 			//out2.write(results);
 			//out2.flush();
 			//out2.close(); 
-			//
+			
 				} catch (Exception e) {
 			//now give value to show in info div instead of plain output text
 			//out.print("Invalid Format");
